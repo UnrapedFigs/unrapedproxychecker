@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Proxy Checker by @unrapeddt</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Advanced Proxy Checker</h1>
+            <p>Upload your proxy list and test them against any target website</p>
+            <p class="credits">Created by <a href="https://t.me/unrapeddt" target="_blank">@unrapeddt</a> | Channel: <a href="https://t.me/unrapedt" target="_blank">@unrapedt</a></p>
+        </header>
+
+        <div class="upload-section">
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-content">
+                    <div class="upload-icon">📁</div>
+                    <h3>Upload Proxy File</h3>
+                    <p>Drag & drop your .txt file here or click to browse</p>
+                    <p class="file-format">Supported formats: IP:PORT or IP:PORT:USER:PASS</p>
+                    <input type="file" id="fileInput" accept=".txt,.csv" hidden>
+                    <button class="browse-btn" onclick="document.getElementById('fileInput').click()">
+                        Browse Files
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="config-section">
+            <div class="config-card">
+                <h3>Check Configuration</h3>
+                <div class="config-grid">
+                    <div class="config-item">
+                        <label for="targetUrl">Target URL:</label>
+                        <input type="url" id="targetUrl" 
+                               placeholder="https://httpbin.org/ip" 
+                               value="https://httpbin.org/ip">
+                    </div>
+                    <div class="config-item">
+                        <label for="timeout">Timeout (ms):</label>
+                        <input type="number" id="timeout" value="10000" min="1000" max="30000">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls-section">
+            <button id="startCheck" class="btn-primary" disabled>Start Checking</button>
+            <button id="cancelCheck" class="btn-secondary" disabled>Cancel</button>
+            <button id="clearResults" class="btn-secondary">Clear Results</button>
+        </div>
+
+        <div class="export-section" id="exportSection" style="display: none;">
+            <div class="export-card">
+                <h3>📤 Export Results</h3>
+                <p>Export your proxy results in various formats</p>
+                <div class="export-buttons">
+                    <button class="export-btn" data-type="valid">✅ Export Valid Proxies</button>
+                    <button class="export-btn" data-type="invalid">❌ Export Invalid Proxies</button>
+                    <button class="export-btn" data-type="all">📊 Export All Results</button>
+                    <button class="export-btn" data-type="http">🌐 Export HTTP URLs</button>
+                    <button class="export-btn" data-type="socks">🧦 Export SOCKS URLs</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-section" id="progressSection" style="display: none;">
+            <div class="progress-header">
+                <h3>Checking Proxies</h3>
+                <span id="progressText">0/0</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="stats">
+                <span class="stat valid">Valid: <span id="validCount">0</span></span>
+                <span class="stat invalid">Invalid: <span id="invalidCount">0</span></span>
+                <span class="stat total">Total: <span id="totalCount">0</span></span>
+            </div>
+        </div>
+
+        <div class="results-section">
+            <div class="results-header">
+                <h3>Results</h3>
+                <div class="results-actions">
+                    <div class="result-filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="valid">Valid</button>
+                        <button class="filter-btn" data-filter="invalid">Invalid</button>
+                    </div>
+                    <button class="export-small" id="quickExport">📤 Export</button>
+                </div>
+            </div>
+            
+            <div class="results-table-container">
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Proxy</th>
+                            <th>Type</th>
+                            <th>Country</th>
+                            <th>City</th>
+                            <th>Response Time</th>
+                            <th>Status Code</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultsBody">
+                        <!-- Results will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>
+                &copy; 2024 Advanced Proxy Checker | 
+                Created by <a href="https://t.me/unrapeddt" target="_blank">@unrapeddt</a> | 
+                Channel: <a href="https://t.me/unrapedt" target="_blank">@unrapedt</a>
+            </p>
+            <p style="margin-top: 5px; opacity: 0.8; font-size: 0.9em;">
+                🚀 Fast • Reliable • Advanced Proxy Checking Technology
+            </p>
+        </footer>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
